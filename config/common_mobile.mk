@@ -79,8 +79,7 @@ PRODUCT_PACKAGES += \
     IconShapeSquircleOverlay \
     IconShapeTaperedRectOverlay \
     IconShapeTeardropOverlay \
-    IconShapeVesselOverlay \
-    LineageNavigationBarNoHint
+    IconShapeVesselOverlay
 
 # Legal
 PRODUCT_SYSTEM_PROPERTIES += \
