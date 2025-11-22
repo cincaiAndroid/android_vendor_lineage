@@ -26,3 +26,10 @@ PRODUCT_SYSTEM_PROPERTIES += \
     ro.cincai.build.version=$(CINCAI_VERSION) \
     ro.lineage.version=$(LINEAGE_VERSION) \
     ro.lineage.display.version=$(LINEAGE_DISPLAY_VERSION)
+
+# version information in recovery miniui --fix applied 20251122
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    ro.build.version.release=16 \
+    ro.lineage.build.version=$(CINCAI_DISPLAY_VERSION) \
+    ro.modversion=$(CINCAI_DISPLAY_VERSION)
+
