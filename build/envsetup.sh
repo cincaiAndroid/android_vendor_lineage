@@ -1,9 +1,6 @@
 CLANG_VERSION=$(build/soong/scripts/get_clang_version.py)
 export LLVM_AOSP_PREBUILTS_VERSION="${CLANG_VERSION}"
 
-RUST_VERSION=$(grep 'RustDefaultVersion =' build/soong/rust/config/global.go | awk '{print $3}' | awk -F '"' '{print $2}')
-export RUST_AOSP_PREBUILTS_VERSION="${RUST_VERSION}"
-
 # check to see if the supplied product is one we can build
 function check_product()
 {
@@ -249,16 +246,15 @@ function lineageremote()
 
 function aospremote()
 {
-    local T=`git rev-parse --show-toplevel 2> /dev/null`
-    if [ -z "$T" ]
+    if ! git rev-parse --git-dir &> /dev/null
     then
-        echo "Git repository not found. Please run this from the directory of the Android repository you wish to set up."
+        echo ".git directory not found. Please run this from the root directory of the Android repository you wish to set up."
         return 1
     fi
     git remote rm aosp 2> /dev/null
 
-    if [ -f "$T/.gitupstream" ]; then
-        local REMOTE=$(cat "$T/.gitupstream" | cut -d ' ' -f 1)
+    if [ -f ".gitupstream" ]; then
+        local REMOTE=$(cat .gitupstream | cut -d ' ' -f 1)
         git remote add aosp ${REMOTE}
     else
         local PROJECT=$(pwd -P | sed -e "s#$ANDROID_BUILD_TOP\/##; s#-caf.*##; s#\/default##")
@@ -278,16 +274,15 @@ function aospremote()
 
 function cloremote()
 {
-    local T=`git rev-parse --show-toplevel 2> /dev/null`
-    if [ -z "$T" ]
+    if ! git rev-parse --git-dir &> /dev/null
     then
-        echo "Git repository not found. Please run this from the directory of the Android repository you wish to set up."
+        echo ".git directory not found. Please run this from the root directory of the Android repository you wish to set up."
         return 1
     fi
     git remote rm clo 2> /dev/null
 
-    if [ -f "$T/.gitupstream" ]; then
-        local REMOTE=$(cat "$T/.gitupstream" | cut -d ' ' -f 1)
+    if [ -f ".gitupstream" ]; then
+        local REMOTE=$(cat .gitupstream | cut -d ' ' -f 1)
         git remote add clo ${REMOTE}
     else
         local PROJECT=$(pwd -P | sed -e "s#$ANDROID_BUILD_TOP\/##; s#-caf.*##; s#\/default##")
