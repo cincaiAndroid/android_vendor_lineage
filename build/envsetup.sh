@@ -18,6 +18,7 @@ function check_product()
         LINEAGE_BUILD=
     fi
     export LINEAGE_BUILD
+    export CINCAI_BUILD="$LINEAGE_BUILD"
 
         TARGET_PRODUCT=$1 \
         TARGET_RELEASE=$2 \
